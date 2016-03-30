@@ -7,9 +7,6 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.soliman.weathersoliman.models.Forecastday_;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +24,9 @@ public class ForecastModel extends BaseModel {
     @Column
     private String date;
     @Column
-    private String degree;
+    private String degreeHigh;
+    @Column
+    private String degreeLow;
     private static ForecastModel instance;
 
     public static ForecastModel getInstance() {
@@ -60,12 +59,21 @@ public class ForecastModel extends BaseModel {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getDegree() {
-        return degree;
+
+    public String getDegreeHigh() {
+        return degreeHigh;
     }
 
-    public void setDegree(String degree) {
-        this.degree = degree;
+    public void setDegreeHigh(String degreeHigh) {
+        this.degreeHigh = degreeHigh;
+    }
+
+    public String getDegreeLow() {
+        return degreeLow;
+    }
+
+    public void setDegreeLow(String degreeLow) {
+        this.degreeLow = degreeLow;
     }
 
     public String getDate() {
@@ -89,7 +97,8 @@ public class ForecastModel extends BaseModel {
             model.setDescription(day.getDate().getWeekday());
             model.setImageLink(day.getIconUrl());
             model.setDate(date);
-            model.setDegree(day.getHigh().getCelsius() + "°C");
+            model.setDegreeHigh(day.getHigh().getCelsius() + "°C");
+            model.setDegreeLow(day.getLow().getCelsius() + "°C");
             model.save();
         }
     }
