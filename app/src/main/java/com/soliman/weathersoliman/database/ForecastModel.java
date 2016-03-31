@@ -26,7 +26,7 @@ public class ForecastModel extends BaseModel {
     @Column
     private String degreeHigh;
     @Column
-    private String degreeLow;
+    private String condition;
     private static ForecastModel instance;
 
     public static ForecastModel getInstance() {
@@ -68,12 +68,12 @@ public class ForecastModel extends BaseModel {
         this.degreeHigh = degreeHigh;
     }
 
-    public String getDegreeLow() {
-        return degreeLow;
+    public String getCondition() {
+        return condition;
     }
 
-    public void setDegreeLow(String degreeLow) {
-        this.degreeLow = degreeLow;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public String getDate() {
@@ -93,12 +93,12 @@ public class ForecastModel extends BaseModel {
         SQLite.delete().from(ForecastModel.class).execute();
         for (Forecastday_ day : forecastday) {
             ForecastModel model = new ForecastModel();
-            String date = day.getDate().getDay() +" - " + day.getDate().getMonth() + " - " +day.getDate().getYear();
+            String date = day.getDate().getDay() + " / " + day.getDate().getMonthname() + " / " + day.getDate().getYear();
             model.setDescription(day.getDate().getWeekday());
             model.setImageLink(day.getIconUrl());
             model.setDate(date);
-            model.setDegreeHigh(day.getHigh().getCelsius() + "°C");
-            model.setDegreeLow(day.getLow().getCelsius() + "°C");
+            model.setDegreeHigh(day.getHigh().getCelsius() + "°");
+            model.setCondition(day.getConditions());
             model.save();
         }
     }

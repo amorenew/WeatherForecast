@@ -26,7 +26,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
         public TextView tvDescription;
         public TextView tvDate;
         public TextView tvDegreeHigh;
-        public TextView tvDegreeLow;
+        public TextView tvCondition;
 
         public MyViewHolder(View view) {
             super(view);
@@ -34,7 +34,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
             tvDescription = (TextView) view.findViewById(R.id.tvDescription);
             tvDate = (TextView) view.findViewById(R.id.tvDate);
             tvDegreeHigh = (TextView) view.findViewById(R.id.tvDegreeHigh);
-            tvDegreeLow = (TextView) view.findViewById(R.id.tvDegreeLow);
+            tvCondition = (TextView) view.findViewById(R.id.tvCondition);
 
 
         }
@@ -60,7 +60,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
         holder.tvDescription.setText(forecastday.getDescription());
         holder.tvDate.setText(forecastday.getDate());
         holder.tvDegreeHigh.setText(forecastday.getDegreeHigh());
-        holder.tvDegreeLow.setText(forecastday.getDegreeLow());
+        holder.tvCondition.setText(forecastday.getCondition());
 
         Picasso.with(this.context)
                 .load(forecastday.getImageLink())
