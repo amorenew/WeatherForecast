@@ -4,7 +4,7 @@ package com.soliman.weathersoliman.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Forecastday {
+public class ForecastdayModel {
 
     @SerializedName("period")
     @Expose

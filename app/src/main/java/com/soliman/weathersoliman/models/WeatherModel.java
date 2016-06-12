@@ -8,27 +8,27 @@ public class WeatherModel {
 
     @SerializedName("response")
     @Expose
-    private Response response;
+    private WeatherResponseModel weatherResponseModel;
     @SerializedName("forecast")
     @Expose
-    private Forecast forecast;
+    private ForecastModel forecastModel;
 
     /**
      * 
      * @return
      *     The response
      */
-    public Response getResponse() {
-        return response;
+    public WeatherResponseModel getWeatherResponseModel() {
+        return weatherResponseModel;
     }
 
     /**
-     * 
-     * @param response
+     *
+     * @param weatherResponseModel
      *     The response
      */
-    public void setResponse(Response response) {
-        this.response = response;
+    public void setWeatherResponseModel(WeatherResponseModel weatherResponseModel) {
+        this.weatherResponseModel = weatherResponseModel;
     }
 
     /**
@@ -36,17 +36,17 @@ public class WeatherModel {
      * @return
      *     The forecast
      */
-    public Forecast getForecast() {
-        return forecast;
+    public ForecastModel getForecastModel() {
+        return forecastModel;
     }
 
     /**
-     * 
-     * @param forecast
+     *
+     * @param forecastModel
      *     The forecast
      */
-    public void setForecast(Forecast forecast) {
-        this.forecast = forecast;
+    public void setForecastModel(ForecastModel forecastModel) {
+        this.forecastModel = forecastModel;
     }
 
 }

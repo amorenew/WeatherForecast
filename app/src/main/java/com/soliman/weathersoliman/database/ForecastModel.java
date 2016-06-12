@@ -5,7 +5,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
-import com.soliman.weathersoliman.models.Forecastday_;
+import com.soliman.weathersoliman.models.Forecastday_Model;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import java.util.List;
 @Table(database = ForecastDatabase.class)
 public class ForecastModel extends BaseModel {
 
+    private static ForecastModel instance;
     @PrimaryKey(autoincrement = true)
     private int id;
     @Column
@@ -27,7 +28,6 @@ public class ForecastModel extends BaseModel {
     private String degreeHigh;
     @Column
     private String condition;
-    private static ForecastModel instance;
 
     public static ForecastModel getInstance() {
         if (instance == null) {
@@ -89,15 +89,15 @@ public class ForecastModel extends BaseModel {
 
     }
 
-    public void saveForecasts(List<Forecastday_> forecastday) {
+    public void saveForecasts(List<Forecastday_Model> forecastday) {
         SQLite.delete().from(ForecastModel.class).execute();
-        for (Forecastday_ day : forecastday) {
+        for (Forecastday_Model day : forecastday) {
             ForecastModel model = new ForecastModel();
-            String date = day.getDate().getDay() + " / " + day.getDate().getMonthname() + " / " + day.getDate().getYear();
-            model.setDescription(day.getDate().getWeekday());
+            String date = day.getDateModel().getDay() + " / " + day.getDateModel().getMonthname() + " / " + day.getDateModel().getYear();
+            model.setDescription(day.getDateModel().getWeekday());
             model.setImageLink(day.getIconUrl());
             model.setDate(date);
-            model.setDegreeHigh(day.getHigh().getCelsius() + "°");
+            model.setDegreeHigh(day.getHighModel().getCelsius() + "°");
             model.setCondition(day.getConditions());
             model.save();
         }

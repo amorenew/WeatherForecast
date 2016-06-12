@@ -1,19 +1,20 @@
 
 package com.soliman.weathersoliman.models;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TxtForecast {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TxtForecastModel {
 
     @SerializedName("date")
     @Expose
     private String date;
     @SerializedName("forecastday")
     @Expose
-    private List<Forecastday> forecastday = new ArrayList<Forecastday>();
+    private List<ForecastdayModel> forecastdayModel = new ArrayList<ForecastdayModel>();
 
     /**
      * 
@@ -38,17 +39,17 @@ public class TxtForecast {
      * @return
      *     The forecastday
      */
-    public List<Forecastday> getForecastday() {
-        return forecastday;
+    public List<ForecastdayModel> getForecastdayModel() {
+        return forecastdayModel;
     }
 
     /**
-     * 
-     * @param forecastday
+     *
+     * @param forecastdayModel
      *     The forecastday
      */
-    public void setForecastday(List<Forecastday> forecastday) {
-        this.forecastday = forecastday;
+    public void setForecastdayModel(List<ForecastdayModel> forecastdayModel) {
+        this.forecastdayModel = forecastdayModel;
     }
 
 }

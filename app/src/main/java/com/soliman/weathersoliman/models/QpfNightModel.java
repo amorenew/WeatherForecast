@@ -4,14 +4,14 @@ package com.soliman.weathersoliman.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SnowDay {
+public class QpfNightModel {
 
     @SerializedName("in")
     @Expose
     private Double in;
-    @SerializedName("cm")
+    @SerializedName("mm")
     @Expose
-    private Double cm;
+    private Integer mm;
 
     /**
      * 
@@ -34,19 +34,19 @@ public class SnowDay {
     /**
      * 
      * @return
-     *     The cm
+     *     The mm
      */
-    public Double getCm() {
-        return cm;
+    public Integer getMm() {
+        return mm;
     }
 
     /**
      * 
-     * @param cm
-     *     The cm
+     * @param mm
+     *     The mm
      */
-    public void setCm(Double cm) {
-        this.cm = cm;
+    public void setMm(Integer mm) {
+        this.mm = mm;
     }
 
 }

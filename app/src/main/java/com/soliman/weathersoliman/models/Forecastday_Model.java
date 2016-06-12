@@ -4,20 +4,20 @@ package com.soliman.weathersoliman.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Forecastday_ {
+public class Forecastday_Model {
 
     @SerializedName("date")
     @Expose
-    private Date date;
+    private DateModel dateModel;
     @SerializedName("period")
     @Expose
     private Integer period;
     @SerializedName("high")
     @Expose
-    private High high;
+    private HighModel highModel;
     @SerializedName("low")
     @Expose
-    private Low low;
+    private LowModel lowModel;
     @SerializedName("conditions")
     @Expose
     private String conditions;
@@ -35,28 +35,28 @@ public class Forecastday_ {
     private Integer pop;
     @SerializedName("qpf_allday")
     @Expose
-    private QpfAllday qpfAllday;
+    private QpfAlldayModel qpfAlldayModel;
     @SerializedName("qpf_day")
     @Expose
-    private QpfDay qpfDay;
+    private QpfDayModel qpfDayModel;
     @SerializedName("qpf_night")
     @Expose
-    private QpfNight qpfNight;
+    private QpfNightModel qpfNightModel;
     @SerializedName("snow_allday")
     @Expose
-    private SnowAllday snowAllday;
+    private SnowAlldayModel snowAlldayModel;
     @SerializedName("snow_day")
     @Expose
-    private SnowDay snowDay;
+    private SnowDayModel snowDayModel;
     @SerializedName("snow_night")
     @Expose
-    private SnowNight snowNight;
+    private SnowNightModel snowNightModel;
     @SerializedName("maxwind")
     @Expose
-    private Maxwind maxwind;
+    private MaxwindModel maxwindModel;
     @SerializedName("avewind")
     @Expose
-    private Avewind avewind;
+    private AvewindModel avewindModel;
     @SerializedName("avehumidity")
     @Expose
     private Integer avehumidity;
@@ -72,17 +72,17 @@ public class Forecastday_ {
      * @return
      *     The date
      */
-    public Date getDate() {
-        return date;
+    public DateModel getDateModel() {
+        return dateModel;
     }
 
     /**
-     * 
-     * @param date
+     *
+     * @param dateModel
      *     The date
      */
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateModel(DateModel dateModel) {
+        this.dateModel = dateModel;
     }
 
     /**
@@ -108,17 +108,17 @@ public class Forecastday_ {
      * @return
      *     The high
      */
-    public High getHigh() {
-        return high;
+    public HighModel getHighModel() {
+        return highModel;
     }
 
     /**
-     * 
-     * @param high
+     *
+     * @param highModel
      *     The high
      */
-    public void setHigh(High high) {
-        this.high = high;
+    public void setHighModel(HighModel highModel) {
+        this.highModel = highModel;
     }
 
     /**
@@ -126,17 +126,17 @@ public class Forecastday_ {
      * @return
      *     The low
      */
-    public Low getLow() {
-        return low;
+    public LowModel getLowModel() {
+        return lowModel;
     }
 
     /**
-     * 
-     * @param low
+     *
+     * @param lowModel
      *     The low
      */
-    public void setLow(Low low) {
-        this.low = low;
+    public void setLowModel(LowModel lowModel) {
+        this.lowModel = lowModel;
     }
 
     /**
@@ -234,17 +234,17 @@ public class Forecastday_ {
      * @return
      *     The qpfAllday
      */
-    public QpfAllday getQpfAllday() {
-        return qpfAllday;
+    public QpfAlldayModel getQpfAlldayModel() {
+        return qpfAlldayModel;
     }
 
     /**
-     * 
-     * @param qpfAllday
+     *
+     * @param qpfAlldayModel
      *     The qpf_allday
      */
-    public void setQpfAllday(QpfAllday qpfAllday) {
-        this.qpfAllday = qpfAllday;
+    public void setQpfAlldayModel(QpfAlldayModel qpfAlldayModel) {
+        this.qpfAlldayModel = qpfAlldayModel;
     }
 
     /**
@@ -252,17 +252,17 @@ public class Forecastday_ {
      * @return
      *     The qpfDay
      */
-    public QpfDay getQpfDay() {
-        return qpfDay;
+    public QpfDayModel getQpfDayModel() {
+        return qpfDayModel;
     }
 
     /**
-     * 
-     * @param qpfDay
+     *
+     * @param qpfDayModel
      *     The qpf_day
      */
-    public void setQpfDay(QpfDay qpfDay) {
-        this.qpfDay = qpfDay;
+    public void setQpfDayModel(QpfDayModel qpfDayModel) {
+        this.qpfDayModel = qpfDayModel;
     }
 
     /**
@@ -270,17 +270,17 @@ public class Forecastday_ {
      * @return
      *     The qpfNight
      */
-    public QpfNight getQpfNight() {
-        return qpfNight;
+    public QpfNightModel getQpfNightModel() {
+        return qpfNightModel;
     }
 
     /**
-     * 
-     * @param qpfNight
+     *
+     * @param qpfNightModel
      *     The qpf_night
      */
-    public void setQpfNight(QpfNight qpfNight) {
-        this.qpfNight = qpfNight;
+    public void setQpfNightModel(QpfNightModel qpfNightModel) {
+        this.qpfNightModel = qpfNightModel;
     }
 
     /**
@@ -288,17 +288,17 @@ public class Forecastday_ {
      * @return
      *     The snowAllday
      */
-    public SnowAllday getSnowAllday() {
-        return snowAllday;
+    public SnowAlldayModel getSnowAlldayModel() {
+        return snowAlldayModel;
     }
 
     /**
-     * 
-     * @param snowAllday
+     *
+     * @param snowAlldayModel
      *     The snow_allday
      */
-    public void setSnowAllday(SnowAllday snowAllday) {
-        this.snowAllday = snowAllday;
+    public void setSnowAlldayModel(SnowAlldayModel snowAlldayModel) {
+        this.snowAlldayModel = snowAlldayModel;
     }
 
     /**
@@ -306,17 +306,17 @@ public class Forecastday_ {
      * @return
      *     The snowDay
      */
-    public SnowDay getSnowDay() {
-        return snowDay;
+    public SnowDayModel getSnowDayModel() {
+        return snowDayModel;
     }
 
     /**
-     * 
-     * @param snowDay
+     *
+     * @param snowDayModel
      *     The snow_day
      */
-    public void setSnowDay(SnowDay snowDay) {
-        this.snowDay = snowDay;
+    public void setSnowDayModel(SnowDayModel snowDayModel) {
+        this.snowDayModel = snowDayModel;
     }
 
     /**
@@ -324,17 +324,17 @@ public class Forecastday_ {
      * @return
      *     The snowNight
      */
-    public SnowNight getSnowNight() {
-        return snowNight;
+    public SnowNightModel getSnowNightModel() {
+        return snowNightModel;
     }
 
     /**
-     * 
-     * @param snowNight
+     *
+     * @param snowNightModel
      *     The snow_night
      */
-    public void setSnowNight(SnowNight snowNight) {
-        this.snowNight = snowNight;
+    public void setSnowNightModel(SnowNightModel snowNightModel) {
+        this.snowNightModel = snowNightModel;
     }
 
     /**
@@ -342,35 +342,35 @@ public class Forecastday_ {
      * @return
      *     The maxwind
      */
-    public Maxwind getMaxwind() {
-        return maxwind;
+    public MaxwindModel getMaxwindModel() {
+        return maxwindModel;
     }
 
     /**
-     * 
-     * @param maxwind
+     *
+     * @param maxwindModel
      *     The maxwind
      */
-    public void setMaxwind(Maxwind maxwind) {
-        this.maxwind = maxwind;
+    public void setMaxwindModel(MaxwindModel maxwindModel) {
+        this.maxwindModel = maxwindModel;
     }
 
     /**
      * 
      * @return
-     *     The avewind
+     *     The avewindModel
      */
-    public Avewind getAvewind() {
-        return avewind;
+    public AvewindModel getAvewindModel() {
+        return avewindModel;
     }
 
     /**
-     * 
-     * @param avewind
-     *     The avewind
+     *
+     * @param avewindModel
+     *     The avewindModel
      */
-    public void setAvewind(Avewind avewind) {
-        this.avewind = avewind;
+    public void setAvewindModel(AvewindModel avewindModel) {
+        this.avewindModel = avewindModel;
     }
 
     /**

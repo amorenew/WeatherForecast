@@ -4,7 +4,7 @@ package com.soliman.weathersoliman.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Response {
+public class WeatherResponseModel {
 
     @SerializedName("version")
     @Expose
@@ -14,7 +14,7 @@ public class Response {
     private String termsofService;
     @SerializedName("features")
     @Expose
-    private Features features;
+    private FeaturesModel featuresModel;
 
     /**
      * 
@@ -57,17 +57,17 @@ public class Response {
      * @return
      *     The features
      */
-    public Features getFeatures() {
-        return features;
+    public FeaturesModel getFeaturesModel() {
+        return featuresModel;
     }
 
     /**
-     * 
-     * @param features
+     *
+     * @param featuresModel
      *     The features
      */
-    public void setFeatures(Features features) {
-        this.features = features;
+    public void setFeaturesModel(FeaturesModel featuresModel) {
+        this.featuresModel = featuresModel;
     }
 
 }
