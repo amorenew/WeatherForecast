@@ -10,14 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import com.soliman.weathersoliman.R;
 import com.soliman.weathersoliman.adapters.ForecastAdapter;
 import com.soliman.weathersoliman.database.ForecastModel;
-import com.soliman.weathersoliman.models.WeatherResponse;
+import com.soliman.weathersoliman.models.WeatherModel;
 import com.soliman.weathersoliman.utils.ForecastListener;
 import com.soliman.weathersoliman.utils.Util;
+import com.soliman.weathersoliman.utils.webservice.WebServiceListener;
 import com.soliman.weathersoliman.viewmodels.ForecastViewModel;
 
 import java.util.List;
 
-public class MainViewController extends AppCompatActivity implements ForecastListener {
+public class MainViewController extends AppCompatActivity implements ForecastListener, WebServiceListener {
 
     private RecyclerView rvWeather;
     private ForecastListener forecastListener;
@@ -44,7 +45,7 @@ public class MainViewController extends AppCompatActivity implements ForecastLis
 
 
         if (Util.getInstance().isInternetAvailable(context)) {
-            forecastViewModel.getForecastdays(MainViewController.this, forecastListener);
+            forecastViewModel.getData(this, MainViewController.this, true);
         } else {
             // if no internet get forecasts from DB
             List<ForecastModel> forecastModels = forecastModel.getForecasts();
@@ -55,17 +56,28 @@ public class MainViewController extends AppCompatActivity implements ForecastLis
     }
 
     @Override
-    public void onSuccess(WeatherResponse weatherResponse) {
-        // save forecasts in DB
-        forecastModel.saveForecasts(weatherResponse.getForecast().getSimpleforecast().getForecastday());
-
-        List<ForecastModel> forecastModels = forecastModel.getForecasts();
-        ForecastAdapter forecastAdapter = new ForecastAdapter(forecastModels, context);
-        rvWeather.swapAdapter(forecastAdapter, false);
+    public void onSuccess(WeatherModel weatherModel) {
     }
 
 
     public void setForecastListener(ForecastListener listener) {
         this.forecastListener = listener;
+    }
+
+    @Override
+    public void onSuccess(Object response, String apiName) {
+        WeatherModel weatherModel = (WeatherModel) response;
+        // save forecasts in DB
+        forecastModel.saveForecasts(weatherModel.getForecast().getSimpleforecast().getForecastday());
+
+        List<ForecastModel> forecastModels = forecastModel.getForecasts();
+        ForecastAdapter forecastAdapter = new ForecastAdapter(forecastModels, context);
+        rvWeather.swapAdapter(forecastAdapter, false);
+
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+
     }
 }

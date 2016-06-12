@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_internet">لا يوجد أتصال بالانترنت!</string>
+    <string name="loading">تحميل...</string>
+</resources>

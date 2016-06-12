@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.soliman.weathersoliman.R;
 import com.soliman.weathersoliman.database.ForecastModel;
-import com.squareup.picasso.Picasso;
+import com.soliman.weathersoliman.utils.Util;
 
 import java.util.List;
 
@@ -20,26 +20,6 @@ import java.util.List;
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyViewHolder> {
     private List<ForecastModel> forecastdays;
     private Context context;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView ivForecast;
-        public TextView tvDescription;
-        public TextView tvDate;
-        public TextView tvDegreeHigh;
-        public TextView tvCondition;
-
-        public MyViewHolder(View view) {
-            super(view);
-            ivForecast = (ImageView) view.findViewById(R.id.ivForecast);
-            tvDescription = (TextView) view.findViewById(R.id.tvDescription);
-            tvDate = (TextView) view.findViewById(R.id.tvDate);
-            tvDegreeHigh = (TextView) view.findViewById(R.id.tvDegreeHigh);
-            tvCondition = (TextView) view.findViewById(R.id.tvCondition);
-
-
-        }
-    }
-
 
     public ForecastAdapter(List<ForecastModel> forecastdays, Context context) {
         this.forecastdays = forecastdays;
@@ -61,18 +41,32 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
         holder.tvDate.setText(forecastday.getDate());
         holder.tvDegreeHigh.setText(forecastday.getDegreeHigh());
         holder.tvCondition.setText(forecastday.getCondition());
-
-        Picasso.with(this.context)
-                .load(forecastday.getImageLink())
-                .placeholder(R.mipmap.ic_launcher) // optional
-                .error(R.mipmap.ic_launcher)
-                .into(holder.ivForecast);
+        Util.getInstance().loadImage(context, holder.ivForecast, forecastday.getImageLink(), R.drawable.error_image);
 
     }
 
     @Override
     public int getItemCount() {
         return forecastdays.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public ImageView ivForecast;
+        public TextView tvDescription;
+        public TextView tvDate;
+        public TextView tvDegreeHigh;
+        public TextView tvCondition;
+
+        public MyViewHolder(View view) {
+            super(view);
+            ivForecast = (ImageView) view.findViewById(R.id.ivForecast);
+            tvDescription = (TextView) view.findViewById(R.id.tvDescription);
+            tvDate = (TextView) view.findViewById(R.id.tvDate);
+            tvDegreeHigh = (TextView) view.findViewById(R.id.tvDegreeHigh);
+            tvCondition = (TextView) view.findViewById(R.id.tvCondition);
+
+
+        }
     }
 
 }
