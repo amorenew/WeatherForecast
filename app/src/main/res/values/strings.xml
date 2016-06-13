@@ -2,4 +2,7 @@
     <string name="app_name">Weather Soliman</string>
     <string name="no_internet">No internet connection!</string>
     <string name="loading">Loading...</string>
+    <string name="main">Main</string>
+    <string name="logout">logout</string>
+    <string name="change_language">العربية</string>
 </resources>

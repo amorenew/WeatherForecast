@@ -1,4 +1,4 @@
-package com.soliman.weathersoliman.adapters;
+package com.soliman.weathersoliman.views.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +29,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.forecast_row, parent, false);
+                .inflate(R.layout.row_forecast, parent, false);
 
         return new MyViewHolder(itemView);
     }

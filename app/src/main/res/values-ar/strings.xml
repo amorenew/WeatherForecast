@@ -2,4 +2,7 @@
 <resources>
     <string name="no_internet">لا يوجد أتصال بالانترنت!</string>
     <string name="loading">تحميل...</string>
+    <string name="main">الرئيسية</string>
+    <string name="logout">خروج</string>
+    <string name="change_language">English</string>
 </resources>

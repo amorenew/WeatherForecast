@@ -1,6 +1,5 @@
 package com.soliman.weathersoliman.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -107,27 +106,33 @@ public class Util {
         return countryName;
     }
 
-    public void setLocalArabic(Context context) {
-        String languageToLoad = "ar"; // your language
-        Locale locale = new Locale(languageToLoad);
+    public void changeLanguage(Context context) {
+        Locale locale;
+        Resources resources = context.getResources();
+        if (Shared.getInstance().isEnglish()) {
+            locale = new Locale(Constants.ArabicLanguageCode);
+            Shared.getInstance().saveLanguage(Constants.ArabicLanguageCode);
+        } else {
+            locale = new Locale(Constants.EnglishLanguageCode);
+            Shared.getInstance().saveLanguage(Constants.EnglishLanguageCode);
+        }
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
-        context.getResources().updateConfiguration(config,
-                context.getResources().getDisplayMetrics());
-        Shared.getInstance().saveLanguage(Constants.ArabicLanguageCode);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
     }
+
 
     public boolean setLocale(Context context) {
         Resources resources = context.getResources();
-        boolean isLanguageChanged = !Shared.getInstance().getLanguage().equalsIgnoreCase(resources.getConfiguration().locale.getLanguage());
+        String localLanguage = resources.getConfiguration().locale.getLanguage();
+        boolean isLanguageChanged = !Shared.getInstance().getLanguage().equalsIgnoreCase(localLanguage);
         if (isLanguageChanged) {
             Locale locale = new Locale(Shared.getInstance().getLanguage());
             Locale.setDefault(locale);
             Configuration config = new Configuration();
             config.locale = locale;
             resources.updateConfiguration(config, resources.getDisplayMetrics());
-            ((Activity) context).recreate();
         }
         return isLanguageChanged;
     }

@@ -35,6 +35,7 @@ public class AppWeather extends Application {
         FlowManager.init(new FlowConfig.Builder(this).openDatabasesOnInit(true).build());
         AppWeather.applicationContext = getApplicationContext();
         Shared.getInstance();
+        // Util.getInstance().setLocale(this);
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 

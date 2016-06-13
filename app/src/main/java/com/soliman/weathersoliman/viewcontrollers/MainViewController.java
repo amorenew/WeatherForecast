@@ -2,11 +2,11 @@ package com.soliman.weathersoliman.viewcontrollers;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -15,17 +15,19 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.soliman.weathersoliman.AppWeather;
 import com.soliman.weathersoliman.R;
-import com.soliman.weathersoliman.adapters.ForecastAdapter;
 import com.soliman.weathersoliman.database.ForecastModel;
 import com.soliman.weathersoliman.models.WeatherModel;
 import com.soliman.weathersoliman.utils.Util;
 import com.soliman.weathersoliman.utils.webservice.WebServiceListener;
 import com.soliman.weathersoliman.viewmodels.ForecastViewModel;
+import com.soliman.weathersoliman.views.RecyclerItemClickListener;
+import com.soliman.weathersoliman.views.adapters.ForecastAdapter;
 
 import java.util.List;
 
-public class MainViewController extends AppCompatActivity implements WebServiceListener {
+public class MainViewController extends BaseViewController implements WebServiceListener {
 
+    List<ForecastModel> forecastModels;
     private RecyclerView rvWeather;
     private Context context;
     private ForecastViewModel forecastViewModel;
@@ -44,7 +46,14 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
         rvWeather.setLayoutManager(mLayoutManager);
         rvWeather.setItemAnimator(new DefaultItemAnimator());
         rvWeather.setAdapter(null);
-
+        rvWeather.addOnItemTouchListener(
+                new RecyclerItemClickListener(MainViewController.this, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Toast.makeText(getApplicationContext(), forecastModels.get(position).getDate(), Toast.LENGTH_LONG).show();
+                    }
+                })
+        );
 
         if (Util.getInstance().isInternetAvailable(context)) {
             forecastViewModel.getData(this, MainViewController.this, true);
@@ -75,10 +84,13 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
         bundle.putString(FirebaseAnalytics.Param.PRICE, "100");
         bundle.putString(FirebaseAnalytics.Param.CURRENCY, "B.D.");
         AppWeather.getAnalytics().logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO, bundle);
-        // [END image_view_event]
-        Util.getInstance().setLocalArabic(this);
+        // [END image_view_event]*/
         Util.getInstance().setLocale(this);
+        addNavigationDrawer();
+        setTitle(getString(R.string.main));
+        setMenuIndex(R.string.main);
     }
+
 
     private void subscribeToNewsNotifications() {
         // [START subscribe_topics]
@@ -113,7 +125,7 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
         // save forecasts in DB
         forecastModel.saveForecasts(weatherModel.getForecastModel().getSimpleforecastModel().getForecastday());
 
-        List<ForecastModel> forecastModels = forecastModel.getForecasts();
+        forecastModels = forecastModel.getForecasts();
         ForecastAdapter forecastAdapter = new ForecastAdapter(forecastModels, context);
         rvWeather.swapAdapter(forecastAdapter, false);
     }
