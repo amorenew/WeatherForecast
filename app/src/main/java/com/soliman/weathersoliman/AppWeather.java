@@ -3,6 +3,7 @@ package com.soliman.weathersoliman;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.soliman.weathersoliman.utils.Shared;
@@ -13,9 +14,19 @@ import com.soliman.weathersoliman.utils.Shared;
 public class AppWeather extends Application {
 
     private static Context applicationContext;
+    /**
+     * The {@code FirebaseAnalytics} used to record screen views.
+     */
+    // [START declare_analytics]
+    private static FirebaseAnalytics firebaseAnalytics;
+    // [END declare_analytics]
 
     public static Context getContext() {
         return applicationContext;
+    }
+
+    public static FirebaseAnalytics getAnalytics() {
+        return firebaseAnalytics;
     }
 
     @Override
@@ -24,6 +35,9 @@ public class AppWeather extends Application {
         FlowManager.init(new FlowConfig.Builder(this).openDatabasesOnInit(true).build());
         AppWeather.applicationContext = getApplicationContext();
         Shared.getInstance();
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
     }
 
     @Override

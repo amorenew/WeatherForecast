@@ -6,7 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.soliman.weathersoliman.AppWeather;
 import com.soliman.weathersoliman.R;
 import com.soliman.weathersoliman.adapters.ForecastAdapter;
 import com.soliman.weathersoliman.database.ForecastModel;
@@ -47,7 +54,56 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
             ForecastAdapter forecastAdapter = new ForecastAdapter(forecastModels, context);
             rvWeather.swapAdapter(forecastAdapter, false);
         }
+        FirebaseCrash.log("Main View Log 1");
+        FirebaseCrash.report(new Exception("No Internet non-fatal error"));
 
+        initNotification();
+        subscribeToNewsNotifications();
+        Log.d(this.getClass().getSimpleName(), "InstanceID token: " + FirebaseInstanceId.getInstance().getToken());
+
+        // [START user_property]
+        AppWeather.getAnalytics().setUserProperty("Property: Name", "Amr");
+        // [END user_property]
+        // [START custom_event]
+        Bundle params = new Bundle();
+        params.putString("image_name", "Ahmed");
+        params.putString("full_text", "Ahmed Basem");
+        AppWeather.getAnalytics().logEvent("User Info", params);
+        // [END custom_event]
+        // [START image_view_event]
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.PRICE, "100");
+        bundle.putString(FirebaseAnalytics.Param.CURRENCY, "B.D.");
+        AppWeather.getAnalytics().logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO, bundle);
+        // [END image_view_event]
+
+    }
+
+    private void subscribeToNewsNotifications() {
+        // [START subscribe_topics]
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
+        Log.d(this.getClass().getSimpleName(), "Subscribed to news topic");
+        // [END subscribe_topics]
+
+    }
+
+    private void initNotification() {
+        // If a notification message is tapped, any data accompanying the notification
+        // message is available in the intent extras. In this sample the launcher
+        // intent is fired when the notification is tapped, so any accompanying data would
+        // be handled here. If you want a different intent fired, set the click_action
+        // field of the notification message to the desired intent. The launcher intent
+        // is used when no click_action is specified.
+        //
+        // Handle possible data accompanying notification message.
+        // [START handle_data_extras]
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                Log.d(this.getClass().getSimpleName(), "Key: " + key + " Value: " + value);
+            }
+        }
+        // [END handle_data_extras]
     }
 
     @Override
@@ -63,6 +119,6 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
 
     @Override
     public void onError(String errorMessage) {
-
+        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
     }
 }

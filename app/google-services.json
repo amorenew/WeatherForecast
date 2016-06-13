@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "812326385649",
+    "firebase_url": "https://weather-app-android.firebaseio.com",
+    "project_id": "weather-app-android",
+    "storage_bucket": "weather-app-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812326385649:android:30b9fc78fb00be9f",
+        "android_client_info": {
+          "package_name": "com.soliman.weathersoliman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812326385649-7p2e5odogvfsprlaghrcvgf1ut18a3pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN4LljvfYltmwg4kuYNfhJe0jWii5ceG8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
