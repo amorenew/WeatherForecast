@@ -10,4 +10,5 @@ public interface WebServiceListener {
 
     void onError(String errorMessage);
 
+    void update();
 }

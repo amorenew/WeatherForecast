@@ -134,4 +134,9 @@ public class MainViewController extends BaseViewController implements WebService
     public void onError(String errorMessage) {
         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void update() {
+
+    }
 }
