@@ -34,7 +34,7 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_view_controller);
+        setContentView(R.layout.view_main);
         context = getApplicationContext();
         forecastViewModel = ForecastViewModel.getInstance();
         forecastModel = ForecastModel.getInstance();
@@ -76,7 +76,8 @@ public class MainViewController extends AppCompatActivity implements WebServiceL
         bundle.putString(FirebaseAnalytics.Param.CURRENCY, "B.D.");
         AppWeather.getAnalytics().logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO, bundle);
         // [END image_view_event]
-
+        Util.getInstance().setLocalArabic(this);
+        Util.getInstance().setLocale(this);
     }
 
     private void subscribeToNewsNotifications() {

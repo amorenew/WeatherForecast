@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.soliman.weathersoliman.Constants;
 import com.soliman.weathersoliman.R;
 
 import java.util.Locale;
@@ -104,6 +105,17 @@ public class Util {
         } catch (Exception e) {
         }
         return countryName;
+    }
+
+    public void setLocalArabic(Context context) {
+        String languageToLoad = "ar"; // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config,
+                context.getResources().getDisplayMetrics());
+        Shared.getInstance().saveLanguage(Constants.ArabicLanguageCode);
     }
 
     public boolean setLocale(Context context) {
