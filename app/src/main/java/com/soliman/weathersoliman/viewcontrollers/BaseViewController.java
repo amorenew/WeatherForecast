@@ -30,7 +30,6 @@ public class BaseViewController extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_base);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
     public void setTitle(String title) {
@@ -38,7 +37,7 @@ public class BaseViewController extends AppCompatActivity {
     }
 
     public void addNavigationDrawer() {
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_menu);
         toolbar.setTitleTextColor(Color.WHITE);

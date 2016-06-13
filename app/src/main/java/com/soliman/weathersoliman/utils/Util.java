@@ -1,5 +1,6 @@
 package com.soliman.weathersoliman.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -120,6 +121,7 @@ public class Util {
         Configuration config = new Configuration();
         config.locale = locale;
         resources.updateConfiguration(config, resources.getDisplayMetrics());
+        ((Activity) context).recreate();
     }
 
 

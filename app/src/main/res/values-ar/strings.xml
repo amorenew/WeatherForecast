@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">التنبؤ بأحوال الطقس</string>
     <string name="no_internet">لا يوجد أتصال بالانترنت!</string>
     <string name="loading">تحميل...</string>
     <string name="main">الرئيسية</string>
