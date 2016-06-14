@@ -15,7 +15,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.soliman.weathersoliman.AppWeather;
 import com.soliman.weathersoliman.R;
-import com.soliman.weathersoliman.database.ForecastModel;
+import com.soliman.weathersoliman.models.MyForecastModel;
 import com.soliman.weathersoliman.models.WeatherModel;
 import com.soliman.weathersoliman.utils.Util;
 import com.soliman.weathersoliman.utils.webservice.WebServiceListener;
@@ -27,11 +27,11 @@ import java.util.List;
 
 public class MainViewController extends BaseViewController implements WebServiceListener {
 
-    List<ForecastModel> forecastModels;
+    List<MyForecastModel> myForecastModels;
     private RecyclerView rvWeather;
     private Context context;
     private ForecastViewModel forecastViewModel;
-    private ForecastModel forecastModel;
+    private MyForecastModel myForecastModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainViewController extends BaseViewController implements WebService
         setContentView(R.layout.view_main);
         context = getApplicationContext();
         forecastViewModel = ForecastViewModel.getInstance();
-        forecastModel = ForecastModel.getInstance();
+        myForecastModel = MyForecastModel.getInstance();
 
         rvWeather = (RecyclerView) findViewById(R.id.rvWeather);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
@@ -50,7 +50,7 @@ public class MainViewController extends BaseViewController implements WebService
                 new RecyclerItemClickListener(MainViewController.this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(getApplicationContext(), forecastModels.get(position).getDate(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), myForecastModels.get(position).getDate(), Toast.LENGTH_LONG).show();
                     }
                 })
         );
@@ -59,8 +59,8 @@ public class MainViewController extends BaseViewController implements WebService
             forecastViewModel.getData(this, MainViewController.this, true);
         } else {
             // if no internet get forecasts from DB
-            List<ForecastModel> forecastModels = forecastModel.getForecasts();
-            ForecastAdapter forecastAdapter = new ForecastAdapter(forecastModels, context);
+            List<MyForecastModel> myForecastModels = myForecastModel.getForecasts();
+            ForecastAdapter forecastAdapter = new ForecastAdapter(myForecastModels, context);
             rvWeather.swapAdapter(forecastAdapter, false);
         }
         FirebaseCrash.log("Main View Log 1");
@@ -123,10 +123,10 @@ public class MainViewController extends BaseViewController implements WebService
     public void onSuccess(Object response, String apiName) {
         WeatherModel weatherModel = (WeatherModel) response;
         // save forecasts in DB
-        forecastModel.saveForecasts(weatherModel.getForecastModel().getSimpleforecastModel().getForecastday());
+        myForecastModel.saveForecasts(weatherModel.getForecastModel().getSimpleforecastModel().getForecastday());
 
-        forecastModels = forecastModel.getForecasts();
-        ForecastAdapter forecastAdapter = new ForecastAdapter(forecastModels, context);
+        myForecastModels = myForecastModel.getForecasts();
+        ForecastAdapter forecastAdapter = new ForecastAdapter(myForecastModels, context);
         rvWeather.swapAdapter(forecastAdapter, false);
     }
 

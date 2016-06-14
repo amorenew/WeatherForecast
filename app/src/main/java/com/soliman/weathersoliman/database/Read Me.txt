@@ -1,0 +1,1 @@
+this package should contain any database configuration classes or database helpers

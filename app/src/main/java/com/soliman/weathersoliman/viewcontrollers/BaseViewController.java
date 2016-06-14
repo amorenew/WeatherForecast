@@ -3,6 +3,7 @@ package com.soliman.weathersoliman.viewcontrollers;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -32,11 +33,19 @@ public class BaseViewController extends AppCompatActivity {
         setContentView(R.layout.view_base);
     }
 
-    public void setTitle(String title) {
+    /**
+     * set toolbar title
+     *
+     * @param title
+     */
+    protected void setTitle(String title) {
         toolbar.setTitle(title);
     }
 
-    public void addNavigationDrawer() {
+    /**
+     * add navigation drawer to the activity
+     */
+    protected void addNavigationDrawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_menu);
@@ -56,19 +65,26 @@ public class BaseViewController extends AppCompatActivity {
 
         drawer = new DrawerBuilder().withActivity(this).build();
 
-        drawer.addItem(addMenuItem(R.string.main, MainViewController.class));
+        drawer.addItem(getMenuItem(R.string.main, MainViewController.class));
         // drawer.addItem(addMenuItem(R.string.education_material, AboutUsViewController.class));
         //__________________________________________________________________________
 
         drawer.addItem(new DividerDrawerItem());
-        drawer.addItem(addChangeLanguageItem());
+        drawer.addItem(getChangeLanguageItem());
         // drawer.addItem(new SecondaryDrawerItem().withName(R.string.change_language).withIconColor(Color.BLUE));
-        drawer.addItem(addLogOutItem());
+        drawer.addItem(getLogOutItem());
         //  drawer.openDrawer();
         drawer.setSelectionAtPosition(0);
     }
 
-    public PrimaryDrawerItem addMenuItem(int name, final Class<?> controller) {
+    /**
+     * init menu item to the navigation drawer
+     *
+     * @param name       menu item name
+     * @param controller the destination view controller
+     * @return
+     */
+    private PrimaryDrawerItem getMenuItem(int name, final Class<?> controller) {
         menuMap.put(name, menuIndex);
         menuIndex++;
         return new PrimaryDrawerItem().withName(name).withIconColor(Color.BLACK).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -84,7 +100,12 @@ public class BaseViewController extends AppCompatActivity {
         });
     }
 
-    public PrimaryDrawerItem addChangeLanguageItem() {
+    /**
+     * init language switch to navigation drawer
+     *
+     * @return
+     */
+    private PrimaryDrawerItem getChangeLanguageItem() {
         return new PrimaryDrawerItem().withName(R.string.change_language).withIconColor(Color.BLACK).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -96,7 +117,12 @@ public class BaseViewController extends AppCompatActivity {
         });
     }
 
-    public PrimaryDrawerItem addLogOutItem() {
+    /**
+     * init logout item to navigation drawer
+     *
+     * @return
+     */
+    private PrimaryDrawerItem getLogOutItem() {
         return new PrimaryDrawerItem().withName(R.string.logout).withIconColor(Color.BLACK).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -108,7 +134,12 @@ public class BaseViewController extends AppCompatActivity {
         });
     }
 
-    public void setMenuIndex(int name) {
+    /**
+     * set selected menu item
+     *
+     * @param name use the name of menu item
+     */
+    protected void setMenuIndex(@StringRes int name) {
         drawer.setSelectionAtPosition(menuMap.get(name));
     }
 

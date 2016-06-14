@@ -1,0 +1,1 @@
+this package is related to views adapters or listeners or custom views

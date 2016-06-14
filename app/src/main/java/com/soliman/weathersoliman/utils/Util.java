@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
 import android.util.Log;
@@ -36,6 +37,12 @@ public class Util {
         return instance;
     }
 
+    /**
+     * check internet availability
+     *
+     * @param context use getApplicationContext()
+     * @return
+     */
     public boolean isInternetAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -89,6 +96,11 @@ public class Util {
         return countryName;
     }
 
+    /**
+     * to get device country name in arabic language
+     * @param context
+     * @return
+     */
     public String getUserCountryNameArabic(Context context) {
         String countryName = "";
         try {
@@ -107,6 +119,11 @@ public class Util {
         return countryName;
     }
 
+    /**
+     * use this to change app language from english to arabic and vice versa
+     * in runtime
+     * @param context
+     */
     public void changeLanguage(Context context) {
         Locale locale;
         Resources resources = context.getResources();
@@ -124,7 +141,11 @@ public class Util {
         ((Activity) context).recreate();
     }
 
-
+    /**
+     * this to change app language to the saved language in user preferences
+     * @param context
+     * @return
+     */
     public boolean setLocale(Context context) {
         Resources resources = context.getResources();
         String localLanguage = resources.getConfiguration().locale.getLanguage();
@@ -139,12 +160,24 @@ public class Util {
         return isLanguageChanged;
     }
 
+    /**
+     * to return basic authentication to fill in web service request header
+     * @return
+     */
     public String getAuth() {
         return String.format("Basic %s", Base64.encodeToString(
                 String.format("%s:%s", "username", "password").getBytes(), Base64.DEFAULT));
     }
 
-    public void loadImage(Context context, ImageView imageView, String imageUrl, int imageHolder) {
+    /**
+     * load image from url and fill it in image view
+     *
+     * @param context
+     * @param imageView   the view which will be filled by the bitmap result
+     * @param imageUrl    the image link
+     * @param imageHolder this drawable for place holder image
+     */
+    public void loadImage(Context context, ImageView imageView, String imageUrl, @DrawableRes int imageHolder) {
         GlideUrl glideUrl = new GlideUrl(imageUrl, new LazyHeaders.Builder()
                 //.addHeader("Authorization", Util.getInstance().getAuth())
                 .build());
@@ -156,7 +189,11 @@ public class Util {
                 .into(imageView);
     }
 
-    // convert english number to Arabic number
+    /**
+     * convert english number to Arabic number
+     * @param number the english number text
+     * @return
+     */
     public String getArabicNumber(String number) {
         if (Shared.getInstance().isEnglish())
             return number;
@@ -172,7 +209,12 @@ public class Util {
         return builder.toString();
     }
 
-    // convert english number to Arabic number
+    /**
+     * convert english number to Arabic number
+     *
+     * @param numberText the english number text
+     * @return
+     */
     public String getArabicNumber(int numberText) {
         String number = String.valueOf(numberText);
         if (Shared.getInstance().isEnglish())

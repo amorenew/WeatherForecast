@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.soliman.weathersoliman.R;
-import com.soliman.weathersoliman.database.ForecastModel;
+import com.soliman.weathersoliman.models.MyForecastModel;
 import com.soliman.weathersoliman.utils.Util;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import java.util.List;
  * Created by islam on 3/29/16.
  */
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyViewHolder> {
-    private List<ForecastModel> forecastdays;
+    private List<MyForecastModel> forecastdays;
     private Context context;
 
-    public ForecastAdapter(List<ForecastModel> forecastdays, Context context) {
+    public ForecastAdapter(List<MyForecastModel> forecastdays, Context context) {
         this.forecastdays = forecastdays;
         this.context = context;
     }
@@ -36,7 +36,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ForecastModel forecastday = forecastdays.get(position);
+        MyForecastModel forecastday = forecastdays.get(position);
         holder.tvDescription.setText(forecastday.getDescription());
         holder.tvDate.setText(forecastday.getDate());
         holder.tvDegreeHigh.setText(forecastday.getDegreeHigh());
