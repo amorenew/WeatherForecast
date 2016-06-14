@@ -48,9 +48,18 @@ public class VolleyRequestManager {
         return instance;
     }
 
-    public void pullJsonObject(final String apiName, int requestType, final VolleyResponsable volleyResponsable, String urlJsonObject, final Map<String, String> param) {
+    /**
+     * request json object
+     *
+     * @param apiName        web service name
+     * @param requestType    type of request Request.Method.POST or Request.Method.GET
+     * @param volleyListener listen to web service call backs
+     * @param webServiceUrl  web service url
+     * @param param          parameters of web service request
+     */
+    public void pullJsonObject(final String apiName, int requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
-        Log.d(this.getClass().getSimpleName(), urlJsonObject);
+        Log.d(this.getClass().getSimpleName(), webServiceUrl);
         if (param != null) {
             for (Map.Entry<String, String> entry : param.entrySet()) {
                 String key = entry.getKey();
@@ -71,14 +80,14 @@ public class VolleyRequestManager {
         }
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(MethodType,
-                urlJsonObject, objectParams,
+                webServiceUrl, objectParams,
                 new com.android.volley.Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("onResponse", "ApiName: " + apiName);
                         Log.d("onResponse", "Response: " + response.toString());
-                        volleyResponsable.onJsonResponse(response, apiName);
+                        volleyListener.onJsonResponse(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -88,7 +97,7 @@ public class VolleyRequestManager {
                 Log.d("onErrorResponse", "ApiName: " + apiName);
                 Log.d("onErrorResponse", "VolleyError: " + error.getMessage());
 
-                volleyResponsable.onError(error, apiName);
+                volleyListener.onError(error, apiName);
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -157,9 +166,18 @@ public class VolleyRequestManager {
                 tag_json_obj);
     }
 
-    public void pullJsonString(final String apiName, int requestType, final VolleyResponsable volleyResponsable, String urlJsonObject, final Map<String, String> param) {
+    /**
+     * request json String
+     *
+     * @param apiName        web service name
+     * @param requestType    type of request Request.Method.POST or Request.Method.GET
+     * @param volleyListener listen to web service call backs
+     * @param webServiceUrl  web service url
+     * @param param          parameters of web service request
+     */
+    public void pullJsonString(final String apiName, int requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
-        Log.d(this.getClass().getSimpleName(), urlJsonObject);
+        Log.d(this.getClass().getSimpleName(), webServiceUrl);
         if (param != null) {
             for (Map.Entry<String, String> entry : param.entrySet()) {
                 String key = entry.getKey();
@@ -180,14 +198,14 @@ public class VolleyRequestManager {
         }
 
         StringRequest jsonObjReq = new StringRequest(MethodType,
-                urlJsonObject,
+                webServiceUrl,
                 new com.android.volley.Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
                         Log.d("onResponse", "ApiName: " + apiName);
                         Log.d("onResponse", "Response: " + response.toString());
-                        volleyResponsable.onJsonResponse(response, apiName);
+                        volleyListener.onJsonResponse(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -197,7 +215,7 @@ public class VolleyRequestManager {
                 Log.d("onErrorResponse", "ApiName: " + apiName);
                 Log.d("onErrorResponse", "VolleyError: " + error.getMessage());
 
-                volleyResponsable.onError(error, apiName);
+                volleyListener.onError(error, apiName);
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -255,15 +273,20 @@ public class VolleyRequestManager {
 
         // Adding request to request queue
         VolleyController.getInstance(context).addToRequestQueue(jsonObjReq,
-                tag_json_obj);
+                tag_str_obj);
     }
 
-    public void postJsonRequest() {
 
-
-    }
-
-    public void pullJsonArray(final String apiName, int requestType, final VolleyResponsable volleyResponsable, String urlJsonObject, final Map<String, String> param) {
+    /**
+     * request json Array
+     *
+     * @param apiName        web service name
+     * @param requestType    type of request Request.Method.POST or Request.Method.GET
+     * @param volleyListener listen to web service call backs
+     * @param webServiceUrl  web service url
+     * @param param          parameters of web service request
+     */
+    public void pullJsonArray(final String apiName, int requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
 
         if (requestType == Request.Method.POST)
@@ -274,14 +297,14 @@ public class VolleyRequestManager {
         JSONArray objectParams = new JSONArray();
 
         JsonArrayRequest jsonObjReq = new JsonArrayRequest(MethodType,
-                urlJsonObject, objectParams,
+                webServiceUrl, objectParams,
                 new com.android.volley.Response.Listener<JSONArray>() {
 
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("onResponse", "ApiName: " + apiName);
                         Log.d("onResponse", "Response: " + response.toString());
-                        volleyResponsable.onJsonResponse(response, apiName);
+                        volleyListener.onJsonResponse(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -291,7 +314,7 @@ public class VolleyRequestManager {
                 Log.d("onErrorResponse", "ApiName: " + apiName);
                 Log.d("onErrorResponse", "VolleyError: " + error.getMessage());
 
-                volleyResponsable.onError(error, apiName);
+                volleyListener.onError(error, apiName);
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -338,7 +361,7 @@ public class VolleyRequestManager {
 
         // Adding request to request queue
         VolleyController.getInstance(context).addToRequestQueue(jsonObjReq,
-                tag_json_obj);
+                tag_json_arry);
     }
   /*  public void pullImage(final ImageView imageView, String urlImage) {
         ImageLoader imageLoader = VolleyController.getInstance(context).getImageLoader();
@@ -404,7 +427,7 @@ public class VolleyRequestManager {
 //        PhotoMultipartRequest imageUploadReq = new PhotoMultipartRequest(url, errorListener, listener, imageFile);
 //        mQueue.add(imageUploadReq);
 //    }
-    public void uploadImage(final String apiName, String requestType, final VolleyResponsable volleyResponsable, String urlJsonObject, final Map<String, String> param) {
+    public void uploadImage(final String apiName, String requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
 
         if (requestType.equalsIgnoreCase("post"))
@@ -414,19 +437,19 @@ public class VolleyRequestManager {
 
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                urlJsonObject, new JSONObject(param),
+                webServiceUrl, new JSONObject(param),
                 new com.android.volley.Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        volleyResponsable.onJsonResponse(response, apiName);
+                        volleyListener.onJsonResponse(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                volleyResponsable.onError(error, apiName);
+                volleyListener.onError(error, apiName);
 
 
             }

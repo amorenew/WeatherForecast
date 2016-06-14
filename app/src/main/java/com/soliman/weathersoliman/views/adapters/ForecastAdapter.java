@@ -41,6 +41,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.MyView
         holder.tvDate.setText(forecastday.getDate());
         holder.tvDegreeHigh.setText(forecastday.getDegreeHigh());
         holder.tvCondition.setText(forecastday.getCondition());
+        //load image from url and set it in image view
         Util.getInstance().loadImage(context, holder.ivForecast, forecastday.getImageLink(), R.drawable.error_image);
 
     }

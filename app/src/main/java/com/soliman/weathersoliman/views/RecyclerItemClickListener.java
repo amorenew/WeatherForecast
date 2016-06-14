@@ -11,7 +11,11 @@ import android.view.View;
  */
 
 /**
- * سيشسيبيس
+ * to support on item click listner on recycler view
+ * sample
+ * mRecyclerView.addOnItemTouchListener(
+ * new RecyclerItemClickListener(MainViewController.this, new RecyclerItemClickListener.OnItemClickListener() {
+ * @Override public void onItemClick(View view, int position) {
  */
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     GestureDetector mGestureDetector;

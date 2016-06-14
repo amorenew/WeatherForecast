@@ -25,6 +25,11 @@ public class AppWeather extends Application {
         return applicationContext;
     }
 
+    /**
+     * return instance of firebase analytics
+     *
+     * @return
+     */
     public static FirebaseAnalytics getAnalytics() {
         return firebaseAnalytics;
     }
@@ -32,10 +37,11 @@ public class AppWeather extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //init dbflow database
         FlowManager.init(new FlowConfig.Builder(this).openDatabasesOnInit(true).build());
         AppWeather.applicationContext = getApplicationContext();
         Shared.getInstance();
-        // Util.getInstance().setLocale(this);
+        // Util.getInstance().setDefaultLocale(this);
         // Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -43,6 +49,7 @@ public class AppWeather extends Application {
 
     @Override
     public void onTerminate() {
+        //destroy dbflow instance
         FlowManager.destroy();
         super.onTerminate();
     }

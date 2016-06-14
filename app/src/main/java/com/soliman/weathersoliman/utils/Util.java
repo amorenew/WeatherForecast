@@ -146,7 +146,7 @@ public class Util {
      * @param context
      * @return
      */
-    public boolean setLocale(Context context) {
+    public boolean setDefaultLocale(Context context) {
         Resources resources = context.getResources();
         String localLanguage = resources.getConfiguration().locale.getLanguage();
         boolean isLanguageChanged = !Shared.getInstance().getLanguage().equalsIgnoreCase(localLanguage);

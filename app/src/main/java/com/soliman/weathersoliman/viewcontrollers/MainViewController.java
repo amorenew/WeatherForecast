@@ -46,6 +46,7 @@ public class MainViewController extends BaseViewController implements WebService
         rvWeather.setLayoutManager(mLayoutManager);
         rvWeather.setItemAnimator(new DefaultItemAnimator());
         rvWeather.setAdapter(null);
+        //handle recycler view on item click
         rvWeather.addOnItemTouchListener(
                 new RecyclerItemClickListener(MainViewController.this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -54,8 +55,9 @@ public class MainViewController extends BaseViewController implements WebService
                     }
                 })
         );
-
+        //check if internet available and call web service
         if (Util.getInstance().isInternetAvailable(context)) {
+            //model view call web service
             forecastViewModel.getData(this, MainViewController.this, true);
         } else {
             // if no internet get forecasts from DB
@@ -63,13 +65,27 @@ public class MainViewController extends BaseViewController implements WebService
             ForecastAdapter forecastAdapter = new ForecastAdapter(myForecastModels, context);
             rvWeather.swapAdapter(forecastAdapter, false);
         }
+        //log steps of crash
         FirebaseCrash.log("Main View Log 1");
+        //report non fatal crash
         FirebaseCrash.report(new Exception("No Internet non-fatal error"));
 
         initNotification();
         subscribeToNewsNotifications();
         Log.d(this.getClass().getSimpleName(), "InstanceID token: " + FirebaseInstanceId.getInstance().getToken());
+        initAnalytics();
+        //init the default app local
+        Util.getInstance().setDefaultLocale(this);
+        //add navigation drawer
+        addNavigationDrawer();
+        setTitle(getString(R.string.main));
+        setMenuIndex(R.string.main);
+    }
 
+    /**
+     * initialize firebase analytics
+     */
+    private void initAnalytics() {
         // [START user_property]
         AppWeather.getAnalytics().setUserProperty("Property: Name", "Amr");
         // [END user_property]
@@ -85,10 +101,6 @@ public class MainViewController extends BaseViewController implements WebService
         bundle.putString(FirebaseAnalytics.Param.CURRENCY, "B.D.");
         AppWeather.getAnalytics().logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO, bundle);
         // [END image_view_event]*/
-        Util.getInstance().setLocale(this);
-        addNavigationDrawer();
-        setTitle(getString(R.string.main));
-        setMenuIndex(R.string.main);
     }
 
 
@@ -122,12 +134,11 @@ public class MainViewController extends BaseViewController implements WebService
     @Override
     public void onSuccess(Object response, String apiName) {
         WeatherModel weatherModel = (WeatherModel) response;
-        // save forecasts in DB
+        // save models in database
         myForecastModel.saveForecasts(weatherModel.getForecastModel().getSimpleforecastModel().getForecastday());
-
         myForecastModels = myForecastModel.getForecasts();
         ForecastAdapter forecastAdapter = new ForecastAdapter(myForecastModels, context);
-        rvWeather.swapAdapter(forecastAdapter, false);
+        rvWeather.setAdapter(forecastAdapter);
     }
 
     @Override

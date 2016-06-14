@@ -9,6 +9,10 @@ import com.soliman.weathersoliman.Constants;
 /**
  * Created by amorenew on 11/05/2016.
  */
+
+/**
+ * to save and retrieve shared preferences values
+ */
 public class Shared {
     private static Shared instance;
     private SharedPreferences preferences;
@@ -25,17 +29,32 @@ public class Shared {
         return instance;
     }
 
+    /**
+     * save language preference
+     *
+     * @param languageKey
+     */
     public void saveLanguage(String languageKey) {
         SharedPreferences.Editor edit = preferences.edit();
         edit.putString(LanguageKey, languageKey);
         edit.apply();
     }
 
+    /**
+     * to get the stored language preference
+     *
+     * @return
+     */
     public String getLanguage() {
         String language = preferences.getString(LanguageKey, Constants.EnglishLanguageCode);
         return language;
     }
 
+    /**
+     * check if saved language is english language
+     *
+     * @return
+     */
     public boolean isEnglish() {
         return (getLanguage().equals(Constants.EnglishLanguageCode));
     }
