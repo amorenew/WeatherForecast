@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -18,6 +19,7 @@ import com.soliman.weathersoliman.R;
 import com.soliman.weathersoliman.models.MyForecastModel;
 import com.soliman.weathersoliman.models.WeatherModel;
 import com.soliman.weathersoliman.utils.Util;
+import com.soliman.weathersoliman.utils.webservice.ViewModel;
 import com.soliman.weathersoliman.utils.webservice.WebServiceListener;
 import com.soliman.weathersoliman.viewmodels.ForecastViewModel;
 import com.soliman.weathersoliman.views.RecyclerItemClickListener;
@@ -30,7 +32,7 @@ public class MainViewController extends BaseViewController implements WebService
     List<MyForecastModel> myForecastModels;
     private RecyclerView rvWeather;
     private Context context;
-    private ForecastViewModel forecastViewModel;
+    private ViewModel forecastViewModel;
     private MyForecastModel myForecastModel;
 
     @Override
@@ -142,12 +144,12 @@ public class MainViewController extends BaseViewController implements WebService
     }
 
     @Override
-    public void onError(String errorMessage) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+    public void onError(VolleyError error, String apiName) {
+        Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void update() {
-
+        forecastViewModel.update();
     }
 }
