@@ -53,11 +53,11 @@ public class VolleyRequestManager {
      *
      * @param apiName        web service name
      * @param requestType    type of request Request.Method.POST or Request.Method.GET
-     * @param volleyListener listen to web service call backs
+     * @param webServiceListener listen to web service call backs
      * @param webServiceUrl  web service url
      * @param param          parameters of web service request
      */
-    public void pullJsonObject(final String apiName, int requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
+    public void pullJsonObject(final String apiName, int requestType, final WebServiceListener webServiceListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
         Log.d(this.getClass().getSimpleName(), webServiceUrl);
         if (param != null) {
@@ -87,7 +87,7 @@ public class VolleyRequestManager {
                     public void onResponse(JSONObject response) {
                         Log.d("onResponse", "ApiName: " + apiName);
                         Log.d("onResponse", "Response: " + response.toString());
-                        volleyListener.onJsonResponse(response, apiName);
+                        webServiceListener.onSuccess(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -97,7 +97,7 @@ public class VolleyRequestManager {
                 Log.d("onErrorResponse", "ApiName: " + apiName);
                 Log.d("onErrorResponse", "VolleyError: " + error.getMessage());
 
-                volleyListener.onError(error, apiName);
+                webServiceListener.onError(error, apiName);
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -171,11 +171,11 @@ public class VolleyRequestManager {
      *
      * @param apiName        web service name
      * @param requestType    type of request Request.Method.POST or Request.Method.GET
-     * @param volleyListener listen to web service call backs
+     * @param webServiceListener listen to web service call backs
      * @param webServiceUrl  web service url
      * @param param          parameters of web service request
      */
-    public void pullJsonString(final String apiName, int requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
+    public void pullJsonString(final String apiName, int requestType, final WebServiceListener webServiceListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
         Log.d(this.getClass().getSimpleName(), webServiceUrl);
         if (param != null) {
@@ -205,7 +205,7 @@ public class VolleyRequestManager {
                     public void onResponse(String response) {
                         Log.d("onResponse", "ApiName: " + apiName);
                         Log.d("onResponse", "Response: " + response.toString());
-                        volleyListener.onJsonResponse(response, apiName);
+                        webServiceListener.onSuccess(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -215,7 +215,7 @@ public class VolleyRequestManager {
                 Log.d("onErrorResponse", "ApiName: " + apiName);
                 Log.d("onErrorResponse", "VolleyError: " + error.getMessage());
 
-                volleyListener.onError(error, apiName);
+                webServiceListener.onError(error, apiName);
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -282,11 +282,11 @@ public class VolleyRequestManager {
      *
      * @param apiName        web service name
      * @param requestType    type of request Request.Method.POST or Request.Method.GET
-     * @param volleyListener listen to web service call backs
+     * @param webServiceListener listen to web service call backs
      * @param webServiceUrl  web service url
      * @param param          parameters of web service request
      */
-    public void pullJsonArray(final String apiName, int requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
+    public void pullJsonArray(final String apiName, int requestType, final WebServiceListener webServiceListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
 
         if (requestType == Request.Method.POST)
@@ -304,7 +304,7 @@ public class VolleyRequestManager {
                     public void onResponse(JSONArray response) {
                         Log.d("onResponse", "ApiName: " + apiName);
                         Log.d("onResponse", "Response: " + response.toString());
-                        volleyListener.onJsonResponse(response, apiName);
+                        webServiceListener.onSuccess(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -314,7 +314,7 @@ public class VolleyRequestManager {
                 Log.d("onErrorResponse", "ApiName: " + apiName);
                 Log.d("onErrorResponse", "VolleyError: " + error.getMessage());
 
-                volleyListener.onError(error, apiName);
+                webServiceListener.onError(error, apiName);
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
                     try {
@@ -427,7 +427,7 @@ public class VolleyRequestManager {
 //        PhotoMultipartRequest imageUploadReq = new PhotoMultipartRequest(url, errorListener, listener, imageFile);
 //        mQueue.add(imageUploadReq);
 //    }
-    public void uploadImage(final String apiName, String requestType, final VolleyListener volleyListener, String webServiceUrl, final Map<String, String> param) {
+    public void uploadImage(final String apiName, String requestType, final WebServiceListener webServiceListener, String webServiceUrl, final Map<String, String> param) {
         int MethodType;
 
         if (requestType.equalsIgnoreCase("post"))
@@ -442,14 +442,14 @@ public class VolleyRequestManager {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        volleyListener.onJsonResponse(response, apiName);
+                        webServiceListener.onSuccess(response, apiName);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                volleyListener.onError(error, apiName);
+                webServiceListener.onError(error, apiName);
 
 
             }
