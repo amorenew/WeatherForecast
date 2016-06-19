@@ -2,12 +2,10 @@ package com.soliman.weathersoliman.utils.webservice;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.soliman.weathersoliman.R;
-import com.soliman.weathersoliman.models.WeatherModel;
 
 /**
  * Created by TCIG_PC_54 on 6/16/2016.
@@ -59,7 +57,6 @@ public class ViewModel implements WebServiceListener {
         webServiceListener.onError(error, apiName);
         if (mProgressDialog.isShowing())
             mProgressDialog.dismiss();
-        Log.d(WeatherModel.class.getSimpleName(), "onError");
     }
 
     @Override
